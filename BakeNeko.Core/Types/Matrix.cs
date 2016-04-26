@@ -10,6 +10,25 @@ namespace BakeNeko.Core.Types
         #endregion
 
         #region CONSTRUCTORS
+        /// <summary>
+        /// Initializes a Matrix data structure with a n X m array of types T.
+        /// The array indexing convention is as follows:
+        ///     - First index denotes the matrix width (number of columns)
+        ///     - Second index denotes the matrix height (number of rows)
+        /// </summary>
+        /// <param name="matrix">n X m array of T values</param>
+        /// <exception cref="MatrixDimensionException">
+        /// Thrown when attempting to initialize the Matrix data structure with
+        /// an array where at least one dimension is 0. 
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Initializing array cannot be null.
+        /// </exception>
+        /// <remarks>
+        /// Martix data structure cannot be initialized with an n X m array
+        /// where one or both dimensions are 0 since this would result in invalid indexing operations
+        /// on the underlying array.
+        /// </remarks>
         public Matrix(T[,] matrix)
         {
             if (matrix == null)
