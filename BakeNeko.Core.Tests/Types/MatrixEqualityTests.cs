@@ -118,5 +118,33 @@ namespace BakeNeko.Core.Tests.Types
             //Assert
             Assert.AreNotEqual(matrixA, matrixB);
         }
+
+        [TestMethod]
+        public void Matrix_Equals_SizeInequality_Height_Test()
+        {
+            //Arrange
+            var squareArrayA = new Integer[5, 5]
+            {
+                {0, 0, 0, 0, 0 },
+                {0, 0, 0, 0, 0 },
+                {0, 0, 0, 0, 0 },
+                {0, 0, 0, 0, 0 },
+                {0, 0, 0, 0, 0 },
+            };
+
+            var squareArrayB = new Integer[4, 5]
+            {
+                {0, 0, 0, 0, 0 },
+                {0, 0, 0, 0, 0 },
+                {0, 0, 0, 0, 0 },
+                {0, 0, 0, 0, 0 }
+            };
+
+            var matrixA = new Matrix<Integer>(squareArrayA);
+            var matrixB = new Matrix<Integer>(squareArrayB);
+
+            //Assert
+            Assert.AreNotEqual(matrixA, matrixB);
+        }
     }
 }
