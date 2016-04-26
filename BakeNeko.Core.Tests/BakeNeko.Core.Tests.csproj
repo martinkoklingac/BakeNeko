@@ -62,6 +62,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Types\MatrixEqualityTests.cs" />
     <Compile Include="Types\MatrixExtensionsIdentityTests.cs" />
   </ItemGroup>
   <Choose>

@@ -12,7 +12,7 @@ namespace BakeNeko.Core.Tests.Types
         public void Matrix_NullContructorArgCheck_Test()
         {
             //Act
-            var matrix = new Matrix<int>(null);
+            var matrix = new Matrix<Integer>(null);
         }
 
         [TestMethod]
@@ -20,7 +20,7 @@ namespace BakeNeko.Core.Tests.Types
         public void Matrix_InvalidWidthCheck_Test()
         {
             //Act
-            var matrix = new Matrix<int>(new int[0, 10]);
+            var matrix = new Matrix<Integer>(new Integer[0, 10]);
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace BakeNeko.Core.Tests.Types
         public void Matrix_InvalidHeightCheck_Test()
         {
             //Act
-            var matrix = new Matrix<int>(new int[10, 0]);
+            var matrix = new Matrix<Integer>(new Integer[10, 0]);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace BakeNeko.Core.Tests.Types
         public void Matrix_InvalidWidthAndHeightCheck_Test()
         {
             //Act
-            var matrix = new Matrix<int>(new int[0, 0]);
+            var matrix = new Matrix<Integer>(new Integer[0, 0]);
         }
 
         [TestMethod]
@@ -44,8 +44,8 @@ namespace BakeNeko.Core.Tests.Types
         {
             //Arrange
             const ulong expectedWidth = 10;
-            var matrixArray = new int[expectedWidth, 20];
-            var matrix = new Matrix<int>(matrixArray);
+            var matrixArray = new Integer[expectedWidth, 20];
+            var matrix = new Matrix<Integer>(matrixArray);
 
             //Act
             var actualWidth = matrix.Width;
@@ -59,10 +59,10 @@ namespace BakeNeko.Core.Tests.Types
         {
             //Arrange
             const ulong expectedWidth = 10;
-            var matrixArray = new int[expectedWidth, 20];
+            var matrixArray = new Integer[expectedWidth, 20];
             var expectedAddressableIndex = (ulong)matrixArray.GetUpperBound(0);
 
-            var matrix = new Matrix<int>(matrixArray);
+            var matrix = new Matrix<Integer>(matrixArray);
 
             //Act
             var actualAddressableIndex = matrix.Width - 1;
@@ -76,8 +76,8 @@ namespace BakeNeko.Core.Tests.Types
         {
             //Arrange
             const ulong expectedHeight = 10;
-            var matrixArray = new int[77, expectedHeight];
-            var matrix = new Matrix<int>(matrixArray);
+            var matrixArray = new Integer[77, expectedHeight];
+            var matrix = new Matrix<Integer>(matrixArray);
 
             //Act
             var actualHeight = matrix.Height;
@@ -91,10 +91,10 @@ namespace BakeNeko.Core.Tests.Types
         {
             //Arrange
             const ulong expectedHeight = 10;
-            var matrixArray = new int[20, expectedHeight];
+            var matrixArray = new Integer[20, expectedHeight];
             var expectedAddressableIndex = (ulong)matrixArray.GetUpperBound(1);
 
-            var matrix = new Matrix<int>(matrixArray);
+            var matrix = new Matrix<Integer>(matrixArray);
 
             //Act
             var actualAddressableIndex = matrix.Height - 1;
@@ -107,7 +107,7 @@ namespace BakeNeko.Core.Tests.Types
         public void Matrix_VerticalMatrixShouldHaveWidthEqualToOne_Test()
         {
             //Arrange
-            var matrix = new Matrix<int>(new int[1, 10]);
+            var matrix = new Matrix<Integer>(new Integer[1, 10]);
 
             //Act
             var actualWidth = matrix.Width;
@@ -120,7 +120,7 @@ namespace BakeNeko.Core.Tests.Types
         public void Matrix_HorizontalMatrixShouldHaveHeightEqualToOne_Test()
         {
             //Arrange
-            var matrix = new Matrix<int>(new int[10, 1]);
+            var matrix = new Matrix<Integer>(new Integer[10, 1]);
 
             //Act
             var actualHeight = matrix.Height;

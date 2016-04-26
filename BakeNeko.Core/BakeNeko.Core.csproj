@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\Integer.cs" />
+    <Compile Include="Types\INumeric.cs" />
     <Compile Include="Types\Matrix.cs" />
     <Compile Include="Types\MatrixDimensionException.cs" />
     <Compile Include="Types\MatrixExtensions.cs" />

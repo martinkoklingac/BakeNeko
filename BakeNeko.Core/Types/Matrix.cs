@@ -3,7 +3,7 @@
 namespace BakeNeko.Core.Types
 {
     public class Matrix<T> 
-        where T : struct
+        where T : INumeric<T>, new()
     {
         #region PRIVATE FIELDS
         private readonly T[,] _matrix;
@@ -30,34 +30,50 @@ namespace BakeNeko.Core.Types
         public ulong Height { get { return (ulong)this._matrix.GetLongLength(1); } }
         public bool IsSquare { get { return this.Width == this.Height; } }
 
-        public T this[ulong width, ulong height]
+        public T this[ulong col, ulong row]
         {
-            get { return _matrix[width,height]; }
-            set { _matrix[width, height] = value; }
+            get { return _matrix[col,row]; }
+            set { _matrix[col, row] = value; }
         }
         #endregion
 
         #region PUBLIC METHODS
-        /// <summary>
-        /// Creates a square identity matrix 
-        /// where width & height are equal to size.
-        /// </summary>
-        /// <param name="size">Width & Height of resulting identity matrix</param>
-        /// <param name="identity"></param>
-        /// <returns>Square identity matrix</returns>
-        public static Matrix<T> Identity(ulong size, T identity)
+        public override int GetHashCode()
         {
-            var matrix = new Matrix<T>(new T[size, size]);
-            for (ulong h = 0; h < matrix.Height; h++)
-                for (ulong w = 0; w < matrix.Width; w++)
-                    matrix[w, h] = w == h ? identity : default(T);
-                
-            return matrix;
+            //TODO : Need to calculate this hash based on contents
+            return base.GetHashCode();
+        }
+        public override bool Equals(object obj)
+        {
+            var matrix = obj as Matrix<T>;
+            if (matrix == null
+                || matrix.Width != this.Width
+                || matrix.Height != this.Height)
+                return false;
+
+            for (var row = 0ul; row < this.Height; row++)
+                for (var col = 0ul; col < this.Width; col++)
+                    if (!this[col, row].Equals(matrix[col, row]))
+                        return false;
+
+            return true;
         }
 
         public static Matrix<T> operator +(Matrix<T> a, Matrix<T> b)
         {
-            throw new NotImplementedException();
+            if (a.Width != b.Width)
+                throw new InvalidOperationException(string.Format("Matrices do not have same width: a.Width={0} != b.Width={1}", a.Width, b.Width));
+
+            if(a.Height != b.Height)
+                throw new InvalidOperationException(string.Format("Matrices do not have same height: a.Height={0} != b.Height={1}", a.Height, b.Height));
+
+            var result = new Matrix<T>(new T[a.Width, a.Height]);
+
+            for (var row = 0ul; row < a.Height; row++)
+                for (var col = 0ul; col < a.Width; col++)
+                    result[col, row] = a[col, row].Add(b[col, row]);
+
+            return result;
         }
 
         public static Matrix<T> operator *(Matrix<T> a, Matrix<T> b)

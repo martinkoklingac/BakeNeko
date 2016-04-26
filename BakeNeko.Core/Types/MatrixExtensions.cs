@@ -2,8 +2,8 @@
 {
     public static class MatrixExtensions
     {
-        public static Matrix<T> Indentity<T>(this T identity, ulong size) 
-            where T : struct
+        public static Matrix<T> Indentity<T>(ulong size)
+            where T : INumeric<T>, new()
         {
             var matrixArray = new T[size, size];
             var width = matrixArray.GetLength(0);
@@ -11,9 +11,13 @@
 
             for (int h = 0; h < height; h++)
                 for (int w = 0; w < width; w++)
-                    matrixArray[w, h] = w == h ? identity : default(T);
+                {
+                    var num = new T();
+                    matrixArray[w, h] = w == h ? num.Identity() : num;
+                }
 
-            return new Matrix<T>(matrixArray);
+            var matrix = new Matrix<T>(matrixArray);
+            return matrix;
         }
     }
 }
