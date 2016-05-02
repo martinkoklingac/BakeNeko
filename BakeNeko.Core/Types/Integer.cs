@@ -22,6 +22,8 @@
             var integer = obj as Integer;
             return integer != null && this._value.Equals(integer._value);
         }
+        public override string ToString(){ return this._value.ToString(); }
+
         public static Integer Identity() { return new Integer(1); }
 
         #region INTERFACE INumeric<Integer>
