@@ -7,6 +7,40 @@ namespace BakeNeko.Core.Tests.Types
     [TestClass]
     public class MatrixDimensionsTests
     {
+        #region PRIVATE FIELDS
+        /*  
+            ┌───┬───┐───┐────┐
+            | 1 | 2 | 3 | 33 |
+            ├───┼───┤───┤────┤
+            | 4 | 5 | 6 | 66 |
+            ├───┼───┤───┤────┤
+            | 7 | 8 | 9 | 99 |
+            └───┴───┘───┘────┘
+        */
+        private static Integer[,] _array4by3;
+        #endregion
+
+        #region SETUP / TEARDOWN
+        [ClassInitialize]
+        public static void SetUp(TestContext context)
+        {
+            _array4by3 = new Integer[4, 3]
+            {
+                {1, 4, 7 },
+                {2, 5, 8 },
+                {3, 6, 9 },
+                {33, 66, 99 }
+            };
+        }
+
+        [ClassCleanup]
+        public static void TearDown()
+        {
+            _array4by3 = null;
+        }
+        #endregion
+
+        #region TESTS
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Matrix_NullContructorArgCheck_Test()
@@ -128,5 +162,62 @@ namespace BakeNeko.Core.Tests.Types
             //Assert
             Assert.AreEqual(1ul, actualHeight);
         }
+
+        [TestMethod]
+        public void Matrix_TopLeftCornerCanBeaddressed_Test()
+        {
+            //Arrange
+            var expectedValue = 1;
+            var matrix = new Matrix<Integer>(_array4by3);
+
+            //Act
+            var actualValue = matrix[0, 0];
+
+            //Assert
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Matrix_TopRightCornerCanBeaddressed_Test()
+        {
+            //Arrange
+            var expectedValue = 33;
+            var matrix = new Matrix<Integer>(_array4by3);
+
+            //Act
+            var actualValue = matrix[matrix.Width - 1, 0];
+
+            //Assert
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Matrix_BottomLeftCornerCanBeaddressed_Test()
+        {
+            //Arrange
+            var expectedValue = 7;
+            var matrix = new Matrix<Integer>(_array4by3);
+
+            //Act
+            var actualValue = matrix[0, matrix.Height - 1];
+
+            //Assert
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        public void Matrix_BottomRightCornerCanBeaddressed_Test()
+        {
+            //Arrange
+            var expectedValue = 99;
+            var matrix = new Matrix<Integer>(_array4by3);
+
+            //Act
+            var actualValue = matrix[matrix.Width - 1, matrix.Height - 1];
+
+            //Assert
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+        #endregion
     }
 }
