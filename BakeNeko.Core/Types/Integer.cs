@@ -25,9 +25,12 @@
         public override string ToString(){ return this._value.ToString(); }
 
         public static Integer Identity() { return new Integer(1); }
+        public static Integer Zero() { return new Integer(0); }
 
         #region INTERFACE INumeric<Integer>
         Integer INumeric<Integer>.Identity() { return Integer.Identity(); }
+        Integer INumeric<Integer>.Zero() { return Integer.Zero(); }
+
         public Integer Add(Integer a) { return new Integer(this._value + a._value); }
         public Integer Subtract(Integer a) { return new Integer(this._value - a._value); }
         public Integer Multiply(Integer a) { return new Integer(this._value * a._value); }
