@@ -7,7 +7,9 @@ namespace BakeNeko.Core.Types
     {
         T Add(T a);
         T Subtract(T a);
+        T Multiply(T a);
         T Identity();
+        T Zero();
     }
 
 
