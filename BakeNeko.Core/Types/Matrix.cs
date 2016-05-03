@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace BakeNeko.Core.Types
 {
@@ -10,6 +11,15 @@ namespace BakeNeko.Core.Types
         #endregion
 
         #region CONSTRUCTORS
+        public Matrix(ulong width, ulong height) :
+            this(new T[width, height])
+        {
+            //The underlying array needs to be initialized with 0 values
+            for (var row = 0ul; row < this.Height; row++)
+                for (var col = 0ul; col < this.Width; col++)
+                    this[row, col] = new T();
+        }
+
         /// <summary>
         /// Initializes a Matrix data structure with a n X m array of types T.
         /// The array indexing convention is as follows:
@@ -78,6 +88,21 @@ namespace BakeNeko.Core.Types
             return true;
         }
 
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            for (var row = 0ul; row < this.Height; row++)
+            {
+                for (var col = 0ul; col < this.Width; col++)
+                    sb.AppendFormat("{0,5}", this[col, row]);
+
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+        }
+
         public static Matrix<T> operator +(Matrix<T> a, Matrix<T> b)
         {
             if (a.Width != b.Width)
@@ -97,7 +122,26 @@ namespace BakeNeko.Core.Types
 
         public static Matrix<T> operator *(Matrix<T> a, Matrix<T> b)
         {
-            throw new NotImplementedException();
+            //TODO : Throw some special exception for this case
+            if (a.Width != b.Height)
+                return null;
+
+            var k = a.Width;
+            var resultant = new Matrix<T>(a.Height, b.Width);
+
+            //Traverse the rows and columns of resultant matrix
+            for (var row = 0ul; row < resultant.Height; row++)
+                for (var col = 0ul; col < resultant.Width; col++)
+                    //This might be better expressed as a dot product of two vectors
+                    for (var m = 0ul; m < k; m++)
+                    {
+                        var a1 = a[m, row];
+                        var b1 = b[col, m];
+                        resultant[col, row] = resultant[col, row]
+                            .Add(a1.Multiply(b1));
+                    }
+
+            return resultant;
         }
         #endregion
     }
