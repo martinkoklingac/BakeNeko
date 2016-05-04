@@ -128,7 +128,7 @@ namespace BakeNeko.Core.Tests.Types
         }
 
         [TestMethod]
-        public void Matrix_Multiplication_ConformableRectangular_Test()
+        public void Matrix_Multiplication_ConformableRectangular_SquareResultant_Test()
         {
             //Arrange
             /*  
@@ -156,6 +156,63 @@ namespace BakeNeko.Core.Tests.Types
                 { 1, 8 },
                 { 2, -7 },
                 { 3, -11 }
+            });
+
+            /*  
+                ┌────┬────┐
+                |  7 |  7 |
+                ├────┼────┤
+                | 33 | 11 |
+                ├────┼────┤
+                | -2 |-10 |
+                └────┴────┘
+            */
+            var m2 = new Matrix<Integer>(new Integer[2, 3]
+            {
+                { 7, 33, -2 },
+                { 7, 11, -10 }
+            });
+
+            //Act
+            var result = m1 * m2;
+
+            //Assert
+            Assert.AreEqual(expectedMatrix, result);
+        }
+
+        [TestMethod]
+        public void Matrix_Multiplication_ConformableRectangular_RectangularResultant_Test()
+        {
+            //Arrange
+            /*  
+                ┌──────────┬──────────┐
+                |     7327 |     2419 |
+                ├──────────┼──────────┤
+                |  -180003 |   -59861 |
+                ├──────────┼──────────┤
+                |-24549570 | -8125580 |
+                └──────────┴──────────┘
+            */
+            var expectedMatrix = new Matrix<Integer>(new Integer[2, 3]
+            {
+                { 7327, -180003, -24549570 },
+                { 2419, -59861, -8125580 }
+            });
+
+            /*  
+                ┌───────┬─────────┐─────┐
+                |     1 |     222 |   3 |
+                ├───────┼─────────┤─────┤
+                |     8 |   -5457 | -11 |
+                ├───────┼─────────┤─────┤
+                | 12345 | -746545 |   0 |
+                └───────┴─────────┘─────┘
+            */
+            var m1 = new Matrix<Integer>(new Integer[3, 3]
+            {
+                { 1, 8, 12345 },
+                { 222, -5457, -746545 },
+                { 3, -11, 0 }
             });
 
             /*  

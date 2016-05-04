@@ -12,7 +12,7 @@ namespace BakeNeko.Core.Tests.Types
             //Arrange
             const int actualValue = 1;
             var identityMatrixArray = new int[1, 1] { { actualValue } };
-            var actualIdentityMatrix = MatrixExtensions.Indentity<Integer>(1);
+            var actualIdentityMatrix = MatrixExtensions.Identity<Integer>(1);
 
             //Act
             var expectedValue = actualIdentityMatrix[0, 0];
@@ -35,7 +35,7 @@ namespace BakeNeko.Core.Tests.Types
                 {0, 0, actualValue }
             };
 
-            var actualIdentityMatrix = MatrixExtensions.Indentity<Integer>(3);
+            var actualIdentityMatrix = MatrixExtensions.Identity<Integer>(3);
 
             //Assert
             Assert.AreEqual(3ul, actualIdentityMatrix.Width);
