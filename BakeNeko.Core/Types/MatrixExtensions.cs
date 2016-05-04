@@ -1,23 +1,36 @@
-﻿namespace BakeNeko.Core.Types
+﻿using System;
+
+namespace BakeNeko.Core.Types
 {
     public static class MatrixExtensions
     {
-        public static Matrix<T> Indentity<T>(ulong size)
+        public static Matrix<T> Identity<T>(ulong size)
             where T : INumeric<T>, new()
         {
-            var matrixArray = new T[size, size];
-            var width = matrixArray.GetLength(0);
-            var height = matrixArray.GetLength(1);
+            var m = new Matrix<T>(size);
+            for (var row = 0ul; row < m.Height; row++)
+                for (var col = 0ul; col < m.Width; col++)
+                    if (col == row)
+                        m[col, row] = new T().Identity();
 
-            for (int h = 0; h < height; h++)
-                for (int w = 0; w < width; w++)
-                {
-                    var num = new T();
-                    matrixArray[w, h] = w == h ? num.Identity() : num;
-                }
+            return m;
+        }
 
-            var matrix = new Matrix<T>(matrixArray);
-            return matrix;
+        public static Matrix<T> Transpose<T>(this Matrix<T> m)
+            where T : INumeric<T>, new()
+        {
+            var mt = new Matrix<T>(m.Height, m.Width);
+            for (var row = 0ul; row < mt.Height; row++)
+                for (var col = 0ul; col < mt.Width; col++)
+                    mt[col, row] = m[row, col];
+
+            return mt;
+        }
+
+        public static Matrix<T> Inverse<T>(this Matrix<T> m)
+            where T : INumeric<T>, new()
+        {
+            throw new NotImplementedException();
         }
     }
 }
