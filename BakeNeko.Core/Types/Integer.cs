@@ -47,8 +47,10 @@
         public static implicit operator Integer(short a) { return new Integer(a); }
         public static implicit operator Integer(int a) { return new Integer(a); }
         public static implicit operator Integer(long a) { return new Integer(a); }
+        public static implicit operator decimal(Integer a) { return a._value; }
+        public static implicit operator double(Integer a) { return a._value; }
+        public static implicit operator float(Integer a) { return a._value; }
         public static implicit operator long(Integer a) { return a._value; }
-
         public static explicit operator short(Integer a) { return (short)a._value; }
         public static explicit operator int(Integer a) { return (int)a._value; }
         #endregion
