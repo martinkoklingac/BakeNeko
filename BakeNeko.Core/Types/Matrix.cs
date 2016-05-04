@@ -11,13 +11,15 @@ namespace BakeNeko.Core.Types
         #endregion
 
         #region CONSTRUCTORS
+        public Matrix(ulong size) : this(size, size) { }
+
         public Matrix(ulong width, ulong height) :
             this(new T[width, height])
         {
             //The underlying array needs to be initialized with 0 values
             for (var row = 0ul; row < this.Height; row++)
                 for (var col = 0ul; col < this.Width; col++)
-                    this[row, col] = new T();
+                    this[col, row] = new T();
         }
 
         /// <summary>
@@ -94,8 +96,9 @@ namespace BakeNeko.Core.Types
             sb.AppendLine();
             for (var row = 0ul; row < this.Height; row++)
             {
+                sb.Append("|");
                 for (var col = 0ul; col < this.Width; col++)
-                    sb.AppendFormat("{0,5}", this[col, row]);
+                    sb.AppendFormat(" {0} |", this[col, row]);
 
                 sb.AppendLine();
             }
@@ -127,7 +130,7 @@ namespace BakeNeko.Core.Types
                 return null;
 
             var k = a.Width;
-            var resultant = new Matrix<T>(a.Height, b.Width);
+            var resultant = new Matrix<T>(b.Width, a.Height);
 
             //Traverse the rows and columns of resultant matrix
             for (var row = 0ul; row < resultant.Height; row++)
