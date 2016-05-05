@@ -146,6 +146,38 @@ namespace BakeNeko.Core.Types
 
             return resultant;
         }
+
+        /// <summary>
+        /// Performs scalar multiplication by multiplying each
+        /// entry of Matrix a by scalar value c and returns new matrix composed
+        /// of the resulting values. 
+        /// The original arguments a & c are not altered.
+        /// </summary>
+        /// <param name="c">Instance of type T</param>
+        /// <param name="a">Matrix of T instance</param>
+        /// <remarks>
+        /// This operation can be expressed using the following equation:
+        /// r(i,j) = c*a(i,j)
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        /// Throws ArgumentNullException whenever arguments c or a are null.
+        /// </exception>
+        /// <returns>New Matrix instance</returns>
+        public static Matrix<T> operator *(T c, Matrix<T> a)
+        {
+            if (a == null)
+                throw new ArgumentNullException("a");
+
+            if (c == null)
+                throw new ArgumentNullException("c");
+
+            var resultant = new Matrix<T>(a.Width, a.Height);
+            for (var row = 0ul; row < a.Height; row++)
+                for (var col = 0ul; col < a.Width; col++)
+                    resultant[col, row] = a[col, row].Multiply(c);
+
+            return resultant;
+        }
         #endregion
     }
 }
