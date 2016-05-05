@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\MatrixExtensionsTransposeTests.cs" />
     <Compile Include="Types\MatrixMultiplicationTests.cs" />
+    <Compile Include="Types\MatrixScalarMultiplicationTests.cs" />
     <Compile Include="Types\MatrixUtilityPropertyTests.cs" />
   </ItemGroup>
   <ItemGroup>
