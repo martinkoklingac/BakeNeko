@@ -59,8 +59,52 @@ namespace BakeNeko.Core.Types
                 var determinant = ad.Subtract(bc);
                 return determinant;
             }
+            else
+            {
+               var determinant = new T();
+               for(var col = 0ul; col < m.Width; col++)
+               {
+                    var entry = m[col, 0];
+                    var mSub = m.SubMatrix(col, 0ul);
+                    var mSubDet = mSub.Determinant();
+                    var multiplier = (long)Math.Pow(-1, col);
+                    determinant = determinant
+                        .Add(entry
+                            .Multiply(mSubDet)
+                            .Multiply(multiplier));
+               }//End for
+
+                return determinant;
+            }//End else
 
             throw new NotImplementedException();
+        }
+
+        public static Matrix<T> SubMatrix<T>(this Matrix<T> m, ulong entryCol, ulong entryRow)
+            where T : INumeric<T>, new()
+        {
+            var mSub = new Matrix<T>(m.Width - 1, m.Height - 1);
+            
+            var mSubRow = 0ul;
+            for (var row = 0ul; row < m.Height; row++)
+            {
+                if (row == entryRow)
+                    continue;
+
+                var mSubCol = 0ul;
+                for (var col = 0ul; col < m.Width; col++)
+                {
+                    if (col == entryCol)
+                        continue;
+
+                    mSub[mSubCol, mSubRow] = m[col, row];
+                    mSubCol++;    
+                }//End for
+
+                mSubRow++;
+            }//End for
+
+            return mSub;
         }
 
         public static Matrix<T> Inverse<T>(this Matrix<T> m)
