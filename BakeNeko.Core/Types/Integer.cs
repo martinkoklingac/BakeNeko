@@ -31,9 +31,13 @@
         Integer INumeric<Integer>.Identity() { return Integer.Identity(); }
         Integer INumeric<Integer>.Zero() { return Integer.Zero(); }
 
+        public Integer Add(long a) { return this.Add(new Integer(a)); }
         public Integer Add(Integer a) { return new Integer(this._value + a._value); }
+        public Integer Subtract(long a) { return this.Subtract(new Integer(a)); }
         public Integer Subtract(Integer a) { return new Integer(this._value - a._value); }
+        public Integer Multiply(long a) { return this.Multiply(new Integer(a)); }
         public Integer Multiply(Integer a) { return new Integer(this._value * a._value); }
+        public Integer Divide(long a) { return this.Divide(new Integer(a)); }
         public Integer Divide(Integer a) { return new Integer(this._value / a._value); }
         #endregion
         #endregion
